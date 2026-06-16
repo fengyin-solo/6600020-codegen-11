@@ -7,6 +7,25 @@ export interface ModbusRegister {
   updatedAt: number
 }
 
+export interface AlarmThreshold {
+  registerName: string
+  warningThreshold: number
+  criticalThreshold: number
+  consecutiveCount: number
+}
+
+export interface ConsecutiveExceedTracker {
+  deviceId_registerName: string
+  count: number
+  lastValue: number
+  firstExceedTime: number
+}
+
+export interface MultiConditionAlarmConfig {
+  requireDeviceOnline: boolean
+  thresholds: AlarmThreshold[]
+}
+
 export interface Device {
   id: string
   name: string
@@ -25,4 +44,6 @@ export interface Alarm {
   level: 'info' | 'warning' | 'critical'
   timestamp: number
   acknowledged: boolean
+  consecutiveCount?: number
+  escalated?: boolean
 }
